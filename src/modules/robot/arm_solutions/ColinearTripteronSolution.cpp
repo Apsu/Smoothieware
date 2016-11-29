@@ -30,7 +30,7 @@ ColinearTripteronSolution::ColinearTripteronSolution(Config* config)
     g_y = cosf(g_r) * a_t;
 
     // Compute forward kinematics matrix denominator
-    d = a_y*b_x - g_y*b_x - a_x*b_y - a_y*g_x + b_y*g_x + a_x*g_y
+    d = a_y*b_x - g_y*b_x - a_x*b_y - a_y*g_x + b_y*g_x + a_x*g_y;
 }
 
 void ColinearTripteronSolution::cartesian_to_actuator(const float cartesian_mm[], ActuatorCoordinates &actuator_mm) const {
