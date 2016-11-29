@@ -10,16 +10,18 @@
 #define beta_tower_rotation_checksum  CHECKSUM("beta_tower_rotation")
 #define gamma_tower_rotation_checksum CHECKSUM("gamma_tower_rotation")
 
+#define PIOVER180       0.01745329251994329576923690768489F
+
 ColinearTripteronSolution::ColinearTripteronSolution(Config* config)
 {
     // Retrieve arm angle and compute tangent
-    a_a = config->value(arm_angle_checksum)->by_default(30.0f)->as_number();
+    a_a = PIOVER180*config->value(arm_angle_checksum)->by_default(30.0f)->as_number();
     a_t = tanf(a_a);
 
     // Retrieve tower rotations
-    a_r = config->value(alpha_tower_rotation_checksum)->by_default(0.0f)->as_number();
-    b_r = config->value(beta_tower_rotation_checksum)->by_default(120.0f)->as_number();
-    g_r = config->value(gamma_tower_rotation_checksum)->by_default(240.0f)->as_number();
+    a_r = PIOVER180*config->value(alpha_tower_rotation_checksum)->by_default(0.0f)->as_number();
+    b_r = PIOVER180*config->value(beta_tower_rotation_checksum)->by_default(120.0f)->as_number();
+    g_r = PIOVER180*config->value(gamma_tower_rotation_checksum)->by_default(240.0f)->as_number();
 
     // Compute tower reductions and factor in tangent coefficient
     a_x = sinf(a_r) * a_t; // Can be simplified if alpha rotation is always 0
