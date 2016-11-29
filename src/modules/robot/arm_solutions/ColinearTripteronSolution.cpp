@@ -42,9 +42,14 @@ void ColinearTripteronSolution::cartesian_to_actuator(const float cartesian_mm[]
      * [g_x -g_y 1]   [z]
      */
 
-    actuator_mm[ALPHA_STEPPER] = (this->a_x * cartesian_mm[X_AXIS]) - (this->a_y * cartesian_mm[Y_AXIS]) + cartesian_mm[Z_AXIS];
-    actuator_mm[BETA_STEPPER ] = (this->b_x * cartesian_mm[X_AXIS]) - (this->b_y * cartesian_mm[Y_AXIS]) + cartesian_mm[Z_AXIS];
-    actuator_mm[GAMMA_STEPPER] = (this->g_x * cartesian_mm[X_AXIS]) - (this->g_y * cartesian_mm[Y_AXIS]) + cartesian_mm[Z_AXIS];
+    // Store for cleaner equations
+    float a_x = this->a_x, a_y = this->a_y;
+    float b_x = this->b_x, b_y = this->b_y;
+    float g_x = this->g_x, g_y = this->g_y;
+
+    actuator_mm[ALPHA_STEPPER] = a_x*cartesian_mm[X_AXIS] - a_y*cartesian_mm[Y_AXIS] + cartesian_mm[Z_AXIS];
+    actuator_mm[BETA_STEPPER ] = b_x*cartesian_mm[X_AXIS] - b_y*cartesian_mm[Y_AXIS] + cartesian_mm[Z_AXIS];
+    actuator_mm[GAMMA_STEPPER] = g_x*cartesian_mm[X_AXIS] - g_y*cartesian_mm[Y_AXIS] + cartesian_mm[Z_AXIS];
 }
 
 void ColinearTripteronSolution::actuator_to_cartesian(const ActuatorCoordinates &actuator_mm, float cartesian_mm[]) const {
@@ -55,6 +60,12 @@ void ColinearTripteronSolution::actuator_to_cartesian(const ActuatorCoordinates 
      * [b_x -b_y 1]^-1 * [b]
      * [g_x -g_y 1]      [g]
      */
+
+    // Store for cleaner equations
+    float a_x = this->a_x, a_y = this->a_y;
+    float b_x = this->b_x, b_y = this->b_y;
+    float g_x = this->g_x, g_y = this->g_y;
+    float d = this->d;
 
     cartesian_mm[X_AXIS] = (actuator_mm[ALPHA_STEPPER]*(g_y-b_y) + actuator_mm[BETA_STEPPER]*(a_y-g_y) + actuator_mm[GAMMA_STEPPER]*(b_y-a_y))/d;
     cartesian_mm[Y_AXIS] = (actuator_mm[ALPHA_STEPPER]*(g_x-b_x) + actuator_mm[BETA_STEPPER]*(a_x-g_x) + actuator_mm[GAMMA_STEPPER]*(b_x-a_x))/d;
