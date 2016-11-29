@@ -56,7 +56,7 @@ void ColinearTripteronSolution::actuator_to_cartesian(const ActuatorCoordinates 
      * [g_x -g_y 1]      [g]
      */
 
-    cartesian_mm[X_AXIS] = actuator_mm[ALPHA_STEPPER]*(g_y-b_y)/d + actuator_mm[BETA_STEPPER]*(a_y-g_y)/d + actuator_mm[GAMMA_STEPPER]*(b_y-a_y)/d;
-    cartesian_mm[Y_AXIS] = actuator_mm[ALPHA_STEPPER]*(g_x-b_x)/d + actuator_mm[BETA_STEPPER]*(a_x-g_x)/d + actuator_mm[GAMMA_STEPPER]*(b_x-a_x)/d;
-    cartesian_mm[Z_AXIS] = actuator_mm[ALPHA_STEPPER]*(b_y*g_x-b_x*g_y)/d + actuator_mm[BETA_STEPPER]*(a_x*g_y-a_y*g_x)/d + actuator_mm[GAMMA_STEPPER]*(a_y*b_x-a_x*b_y)/d;
+    cartesian_mm[X_AXIS] = (actuator_mm[ALPHA_STEPPER]*(g_y-b_y) + actuator_mm[BETA_STEPPER]*(a_y-g_y) + actuator_mm[GAMMA_STEPPER]*(b_y-a_y))/d;
+    cartesian_mm[Y_AXIS] = (actuator_mm[ALPHA_STEPPER]*(g_x-b_x) + actuator_mm[BETA_STEPPER]*(a_x-g_x) + actuator_mm[GAMMA_STEPPER]*(b_x-a_x))/d;
+    cartesian_mm[Z_AXIS] = (actuator_mm[ALPHA_STEPPER]*(b_y*g_x-b_x*g_y) + actuator_mm[BETA_STEPPER]*(a_x*g_y-a_y*g_x) + actuator_mm[GAMMA_STEPPER]*(a_y*b_x-a_x*b_y))/d;
 }
