@@ -24,6 +24,7 @@
 #include "arm_solutions/HBotSolution.h"
 #include "arm_solutions/CoreXZSolution.h"
 #include "arm_solutions/MorganSCARASolution.h"
+#include "arm_solutions/ColinearTripteronSolution.h"
 #include "StepTicker.h"
 #include "checksumm.h"
 #include "utils.h"
@@ -63,6 +64,7 @@ using std::string;
 #define  rostock_checksum                    CHECKSUM("rostock")
 #define  linear_delta_checksum               CHECKSUM("linear_delta")
 #define  rotary_delta_checksum               CHECKSUM("rotary_delta")
+#define  colinear_tripteron_checksum         CHECKSUM("colinear_tripteron")
 #define  delta_checksum                      CHECKSUM("delta")
 #define  hbot_checksum                       CHECKSUM("hbot")
 #define  corexy_checksum                     CHECKSUM("corexy")
@@ -162,6 +164,9 @@ void Robot::load_config()
 
     } else if(solution_checksum == cartesian_checksum) {
         this->arm_solution = new CartesianSolution(THEKERNEL->config);
+
+    } else if(solution_checksum == colinear_tripteron_checksum) {
+        this->arm_solution = new ColinearTripteronSolution(THEKERNEL->config);
 
     } else {
         this->arm_solution = new CartesianSolution(THEKERNEL->config);
